@@ -1,0 +1,64 @@
+type UserRole = 
+ variant {
+   Admin;
+   Doctor;
+   Patient;
+ };
+type UserId = nat;
+type User = 
+ record {
+   dateOfBirth: opt text;
+   email: opt text;
+   gender: opt text;
+   id: UserId;
+   image: opt blob;
+   licenseNumber: opt text;
+   name: opt text;
+   role: UserRole;
+   username: text;
+   verified: bool;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: UserId;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: nat;
+ };
+type Report = 
+ record {
+   content: text;
+   doctorUsername: text;
+   id: nat;
+   media: opt blob;
+   patientUsername: text;
+   principalId: UserId;
+   timestamp: int;
+ };
+type Appointment = 
+ record {
+   attachment: opt blob;
+   condition: text;
+   doctorUsername: text;
+   id: nat;
+   patientUsername: text;
+   timestamp: int;
+ };
+service : {
+  addPatientImage: (text, blob) -> (bool);
+  addUser: (text, UserRole, opt text, opt text, opt text, opt text, opt text,
+   opt blob) -> (Result_1);
+  createAppointment: (text, text, text, opt blob) -> (Result);
+  createReport: (text, text, text, opt blob) -> (Result);
+  getAppointments: (text) -> (vec Appointment) query;
+  getReport: (text, nat) -> (opt Report) query;
+  getVerifiedDoctors: () -> (vec User) query;
+  greetAuthenticated: (principal) -> (text) query;
+  registerPatient: (text) -> (Result_1);
+  sendMessage: (text, text, text, opt blob, opt text) -> (Result);
+  verifyDoctor: (text) -> (bool);
+  whoami: () -> (principal) query;
+}

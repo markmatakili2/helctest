@@ -1,0 +1,37 @@
+{
+  "canisters": {
+    "helctest_backend": {
+      "main": "src/helctest_backend/main.mo",
+      "type": "motoko"
+    },
+    "helctest_frontend": {
+      "dependencies": [
+        "helctest_backend"
+      ],
+      "source": [
+        "src/helctest_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "helctest_frontend"
+    },
+    "internet_identity": {
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "frontend": {},
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
